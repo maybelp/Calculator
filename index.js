@@ -24,24 +24,24 @@ function getOperator(oprtr) {
     }
 }
 function init(){
-    try { // statements to try
-        operatorName = getOperator(myOperator); // function could throw exception
-    }
-    catch (e) {
-        operatorName = 'unknown';
-        console.error(e);
-        //logMyErrors(e); // pass exception object to error handler (i.e. your own function)
-    }
+    
 
 console.log('Welcome to the Calculator \n');
 console.log('==========================\n');
 console.log('please enter the operator: ');
 operator = readline.prompt();
-operator = getOperator(operator); 
+try { // statements to try
+  operatorName = getOperator(operator); // function could throw exception
+}
+catch (e) {
+  operatorName = 'unknown';
+  console.error(e);
+  //logMyErrors(e); // pass exception object to error handler (i.e. your own function)
+}
 console.log('please enter the first number: ');
-fNumber = readline.prompt();
+fNumber = +readline.prompt();
 console.log('Please enter the second number: ');
-sNumber = readline.prompt();
+sNumber = +readline.prompt();
 switch (operator) {
     case '+':
         result = fNumber + sNumber;
