@@ -1,6 +1,8 @@
-//Branching code
+//ForLoopsAndArrays code
 const readline = require('readline-sync'); 
-
+function isZero(value) {
+    return typeof value === 0; 
+  }
 function wrongOne(){
     throw new Error('InvalidOperatorNo');
 
@@ -35,27 +37,36 @@ function init(){
 
 console.log('Welcome to the Calculator \n');
 console.log('==========================\n');
-console.log('please enter the operator: ');
+console.log('please enter the operator: ')
 operator = readline.prompt();
-operator = getOperator(operator); 
-console.log('please enter the first number: ');
-fNumber = readline.prompt();
-console.log('Please enter the second number: ');
-sNumber = readline.prompt();
+operator = getOperator(operator);
+console.log('How many numbers do you want to + ? ');
+numberAmount = parseInt(readline.prompt()); 
+numberArray = [];
+for (let i = 0; i < numberAmount; i++) {
+    console.log('Please enter the number %d:', (i+1));
+    numberArray[i] = +readline.prompt();
+  }
 switch (operator) {
     case '+':
-        result = fNumber + sNumber;
+        result = numberArray.reduce(function(accumulator, currentValue) { return accumulator + currentValue }, 0);
       break;
     case '-':
-        result = fNumber - sNumber;
+        for(let i = 1; i < numberAmount; i++) -numberArray[i];
+        result = numberArray.reduce(function(accumulator, currentValue) { return accumulator + currentValue }, 0);
       break;
     case '*': 
-        result = fNumber * sNumber;
-        
+        result = 1;
+        for (let i = 0; i < numberAmount; i++) {
+            result *= numberArray[i];
+        }
       break;
     case '/':
-        if (sNumber != 0) {result = fNumber / sNumber;}
-        else{console.log (Error)}
+        result = numberAmount[0]; 
+
+        for (let i = 1; i < numberAmount; i++) {
+            result /= numberArray[i];
+        }
       break;
     default:
      console.log(`Sorry, ${operator} NaN.`);
