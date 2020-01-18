@@ -1,4 +1,4 @@
-//ForLoopsAndArrays code
+//Functions-and-While-Loops
 const readline = require('readline-sync'); 
 function isZero(numberArray) {
   for (let i =1; i < numberArray.length; i++){
@@ -30,31 +30,53 @@ function getOperator(oprtr) {
       return oprtr;
     } else {
       wrongOne(); // throw keyword is used here
+
     }
 }
-function init(){
-let result;  
-console.log('Welcome to the Calculator \n');
-console.log('==========================\n');
-console.log('please enter the operator: ')
-operator = readline.prompt();
-console.log('How many numbers do you want to %s ? ', operator);
-numberAmount = parseInt(readline.prompt()); 
-numberArray = [];
-for (let i = 0; i < numberAmount; i++) {
-    console.log('Please enter the number %d:', (i+1));
-    numberArray[i] = +readline.prompt();
-  }
-try { // statements to try
-    operator = getOperator(operator); // function could throw exception
-    if (operator == '/') isZero(numberArray);// function could throw exception
+function tryAndCatchOprtr(anOperator, numberArray){
+  try { // statements to try
+    operator = getOperator(anOperator); // function could throw exception
+    if (operator == '/') {
+       isZero(numberArray);
+    }// function could throw exception
     
   }
-catch (e) {
+  catch (e) {
     logMyErrors(e); // error handler 
+  }
+  return operator;
 }
+function operatorCreation(cnslOperator){
+  function getNumber(){
 
-switch (operator) {
+    console.log('How many numbers do you want to %s ? ', cnslOperator);
+    numberAmount = new Number(+readline.prompt()); 
+    numberArray = [];
+  
+    number = new Number();//is an object and inherit from Number class
+    for (let i = 0; i < numberAmount; i++) {
+            rightNumber = false;
+            //while to validate numbers
+            while (!rightNumber){
+              console.log('Please enter the number %d:', (i+1));
+              number = +readline.prompt();
+
+              if (isNaN(number)){
+                console.log("100, 2, 74 are examples of numbers");
+                
+              } else {
+                numberArray[i] = number;
+                rightNumber = true;  
+              }
+            }   
+    }
+    return numberArray;
+  }
+  //return operator = tryAndCatchOprtr(cnslOperator, rNumberArray),rNumberArray = getNumber();
+  numberArray = getNumber();
+  let operator = tryAndCatchOprtr(cnslOperator,numberArray);
+  
+  switch (operator) {
     case '+':
         result = numberArray.reduce(function(accumulator, currentValue) { return accumulator + currentValue }, 0);
       break;
@@ -79,9 +101,36 @@ switch (operator) {
         }
       break;
     default:
-     console.log(`Sorry, ${operator} NaN.`);
+    console.log(`Sorry, ${operator} NaN.`);
   }
+  console.log(' The answer is: %d', result);
+  
+}
 
-console.log(' The answer is: %d', result);
+
+
+function init(){
+let result;  
+console.log('Welcome to the Calculator \n');
+console.log('==========================\n');
+console.log('to quit, click Ctrl+C!');
+
+var numberAmount;
+
+const pause = () => new Promise(res => setTimeout(res, 0));
+
+process.on ('SIGINT',() => {
+  console.log('to quit, click Ctrl+C!');
+  process.exit(1);
+});
+
+(async function() {
+      while(true){
+          console.log('please enter the operator (+, -, * or /): ');
+          cnsloperator = operatorCreation(readline.prompt());
+           await pause();
+          
+      } 
+    })();        
 }
 init();
