@@ -46,36 +46,8 @@ function tryAndCatchOprtr(anOperator, numberArray){
   }
   return operator;
 }
-function operatorCreation(cnslOperator){
-  function getNumber(){
 
-    console.log('How many numbers do you want to %s ? ', cnslOperator);
-    numberAmount = new Number(+readline.prompt()); 
-    numberArray = [];
-  
-    number = new Number();//is an object and inherit from Number class
-    for (let i = 0; i < numberAmount; i++) {
-            rightNumber = false;
-            //while to validate numbers
-            while (!rightNumber){
-              console.log('Please enter the number %d:', (i+1));
-              number = +readline.prompt();
-
-              if (isNaN(number)){
-                console.log("100, 2, 74 are examples of numbers");
-                
-              } else {
-                numberArray[i] = number;
-                rightNumber = true;  
-              }
-            }   
-    }
-    return numberArray;
-  }
-  //return operator = tryAndCatchOprtr(cnslOperator, rNumberArray),rNumberArray = getNumber();
-  numberArray = getNumber();
-  let operator = tryAndCatchOprtr(cnslOperator,numberArray);
-  
+function operationSolution(operator, numberArray){
   switch (operator) {
     case '+':
         result = numberArray.reduce(function(accumulator, currentValue) { return accumulator + currentValue }, 0);
@@ -103,6 +75,38 @@ function operatorCreation(cnslOperator){
     default:
     console.log(`Sorry, ${operator} NaN.`);
   }
+}
+
+function operatorCreation(cnslOperator){
+  function getNumber(){
+
+    console.log('How many numbers do you want to %s ? ', cnslOperator);
+    numberAmount = new Number(+readline.prompt()); 
+    numberArray = [];
+  
+    number = new Number();//is an object and inherit from Number class
+    for (let i = 0; i < numberAmount; i++) {
+            rightNumber = false;
+            //while to validate numbers
+            while (!rightNumber){
+              console.log('Please enter number %d:', (i+1));
+              number = +readline.prompt();
+
+              if (isNaN(number)){
+                console.log("100, 2, 74 are examples of numbers");
+                
+              } else {
+                numberArray[i] = number;
+                rightNumber = true;  
+              }
+            }   
+    }
+    return numberArray;
+  }
+  //return operator = tryAndCatchOprtr(cnslOperator, rNumberArray),rNumberArray = getNumber();
+  numberArray = getNumber();
+  let operator = tryAndCatchOprtr(cnslOperator,numberArray);
+  operationSolution(operator, numberArray);
   console.log(' The answer is: %d', result);
   
 }
@@ -113,14 +117,14 @@ function init(){
 let result;  
 console.log('Welcome to the Calculator \n');
 console.log('==========================\n');
-console.log('to quit, click Ctrl+C!');
+console.log('to quit, click Ctrl+C');
 
 var numberAmount;
 
 const pause = () => new Promise(res => setTimeout(res, 0));
 
 process.on ('SIGINT',() => {
-  console.log('to quit, click Ctrl+C!');
+  console.log('you clicked Ctrl+C!');
   process.exit(1);
 });
 
