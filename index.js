@@ -110,31 +110,18 @@ function operatorCreation(cnslOperator){
   console.log(' The answer is: %d', result);
   
 }
+function printWelcomeMessage(){
+  console.log('Welcome to the Calculator \n');
+  console.log('==========================\n');
+  console.log('to quit, click Ctrl+C');
 
-
+}
 
 function init(){
-let result;  
-console.log('Welcome to the Calculator \n');
-console.log('==========================\n');
-console.log('to quit, click Ctrl+C');
-
-var numberAmount;
-
-const pause = () => new Promise(res => setTimeout(res, 0));
-
-process.on ('SIGINT',() => {
-  console.log('you clicked Ctrl+C!');
-  process.exit(1);
-});
-
-(async function() {
+printWelcomeMessage();
       while(true){
           console.log('please enter the operator (+, -, * or /): ');
-          cnsloperator = operatorCreation(readline.prompt());
-           await pause();
-          
-      } 
-    })();        
+          cnsloperator = operatorCreation(readline.prompt());      
+      }            
 }
 init();
