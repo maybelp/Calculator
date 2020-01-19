@@ -54,7 +54,6 @@ function operationSolution(operator, numberArray){
       break;
     case '-':
         result = numberArray[0];
-        console.log("hola result %d : ", result );
         for (let i = 1; i < numberArray.length; i++) {
           result -= numberArray[i];
         } 
@@ -76,8 +75,33 @@ function operationSolution(operator, numberArray){
     console.log(`Sorry, ${operator} NaN.`);
   }
 }
+function printVowelQuantity(oQuantity, aQuantity, eQuantity, iQuantity,uQuantity){
+  console.log('The vowel counts are:\n');
+  console.log(`A: ${aQuantity} \n E: ${eQuantity} \n I: ${iQuantity} \n O: ${oQuantity} \n U: ${uQuantity}`);
+}
+function performOneVowelCountingCalculation(){
+  console.log("Please enter a string: ");
+  myStr = readline.prompt();
+  const chars = myStr.split('');
+  aQuantity = 0;
+  eQuantity = 0;
+  iQuantity = 0;
+  oQuantity = 0;
+  uQuantity = 0; 
+  for (let i=0; i<chars.length; i++){
+    if (chars[i] == "a" || chars[i] == "A") {++aQuantity;}
+    else if (chars[i] == "e" || chars[i] == "E") {++eQuantity;}
+    else if (chars[i] == "i" || chars[i] == "I") {++iQuantity;}
+    else if (chars[i] == "o" || chars[i] == "O") {++oQuantity;}
+    else if (chars[i] == "u" || chars[i] == "U") {++uQuantity;}
 
-function operatorCreation(cnslOperator){
+  } 
+  printVowelQuantity(oQuantity, aQuantity, eQuantity, iQuantity,uQuantity);
+}
+
+function performOneArithmeticCalculation(){
+  console.log('please enter the operator (+, -, * or /): ');
+  cnslOperator = readline.prompt();
   function getNumber(){
 
     console.log('How many numbers do you want to %s ? ', cnslOperator);
@@ -116,12 +140,25 @@ function printWelcomeMessage(){
   console.log('to quit, click Ctrl+C');
 
 }
-
-function init(){
-printWelcomeMessage();
-      while(true){
-          console.log('please enter the operator (+, -, * or /): ');
-          cnsloperator = operatorCreation(readline.prompt());      
-      }            
+function getCalculationMode(){
+  console.log('Which calculator mode do you want?\n 1) Arithmetic\n 2) Vowel counting');
+  mode = readline.prompt();
+  return mode;
 }
+//main program
+function init(){
+  const ARITHMETIC_MODE = '1';
+  const VOWEL_COUNTING_MODE = '2';  
+  printWelcomeMessage();
+        while(true){
+          const calculationMode = getCalculationMode();
+          if (calculationMode === ARITHMETIC_MODE) {
+            performOneArithmeticCalculation();
+            } else if (calculationMode === VOWEL_COUNTING_MODE) {
+            performOneVowelCountingCalculation();
+            }
+           }
+                  
+}            
+
 init();
